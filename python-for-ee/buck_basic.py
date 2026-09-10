@@ -15,7 +15,7 @@ def check_calculation_range(*values):
         raise ValueError("数值超出浮点计算范围，请调整输入。")
 
 
-def main():
+def calculate_once():
     print("1. 计算模式：已知 L 计算电感电流纹波 ΔIL")
     print("2. 设计模式：根据目标 ΔIL 反推电感 L")
     try:
@@ -63,6 +63,19 @@ def main():
             print(f"Required inductance: {inductance_h:.12g} H = {inductance_uh:.12g} uH")
     except ValueError as error:
         print(error)
+
+
+def main():
+    try:
+        while True:
+            calculate_once()
+            while True:
+                answer = input("是否继续计算？（y/yes 继续，n/no 退出）: ").strip().lower()
+                if answer in ("y", "yes"):
+                    break
+                if answer in ("n", "no"):
+                    return
+                print("输入无效：请输入 y/yes 或 n/no。")
     except EOFError:
         print("输入中断：未提供完整参数。")
 
